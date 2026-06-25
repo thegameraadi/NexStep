@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronRight } from 'lucide-react';
+import { useUser } from '../context/UserContext';
 
 const NAV_LINKS = [
-  { label: 'Roadmap', href: '#roadmap' },
+  { label: 'Roadmap', href: '/roadmap', isRoute: true },
   { label: 'Programs', href: '/programs', isRoute: true },
   { label: 'Applications', href: '#applications' },
   { label: 'Finance', href: '#finance' },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { profile } = useUser();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -88,14 +90,29 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Desktop Auth */}
+          {/* Desktop Auth / Profile */}
           <div className="hidden lg:flex items-center gap-3">
-            <button className="text-sm font-medium text-navy-700 px-4 py-2 rounded-lg hover:bg-navy-50 transition-colors">
-              Sign In
-            </button>
-            <button className="btn-primary !py-2 !px-5 !text-sm">
-              Sign Up
-            </button>
+            {profile.completedOnboarding ? (
+              <Link
+                to="/roadmap"
+                className="flex items-center gap-2 bg-navy-900 text-white text-xs font-semibold px-3 py-2 rounded-xl hover:bg-navy-800 transition-colors"
+              >
+                <span className="w-5 h-5 rounded-full bg-[#F5A623] flex items-center justify-center text-navy-900 font-bold text-[10px] flex-shrink-0">
+                  {profile.currentStage}
+                </span>
+                <span className="text-navy-200">Stage {profile.currentStage}</span>
+                <span className="text-navy-400">/10</span>
+              </Link>
+            ) : (
+              <>
+                <button className="text-sm font-medium text-navy-700 px-4 py-2 rounded-lg hover:bg-navy-50 transition-colors">
+                  Sign In
+                </button>
+                <Link to="/onboarding" className="btn-primary !py-2 !px-5 !text-sm">
+                  Start My Journey
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Hamburger */}

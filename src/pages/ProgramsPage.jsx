@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, X, Bookmark } from 'lucide-react';
+import { Search, X, Bookmark, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProgramCard from '../components/programs/ProgramCard';
 import ProgramFilters from '../components/programs/ProgramFilters';
@@ -7,11 +7,52 @@ import SortBar from '../components/programs/SortBar';
 import ActiveFilters from '../components/programs/ActiveFilters';
 import { usePrograms } from '../hooks/usePrograms';
 import { useMyList } from '../context/MyListContext';
+import { useUser } from '../context/UserContext';
+import { STAGES } from '../data/roadmap';
+
+function ProfileContextBanner({ profile }) {
+  const stage = STAGES.find((s) => s.id === profile.currentStage);
+  if (!stage) return null;
+
+  const isShortlisting = profile.currentStage === 4;
+  const isResearching = profile.currentStage <= 2;
+
+  return (
+    <div className="bg-navy-800/60 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
+      <div className="flex items-center gap-2.5">
+        <span className="text-xl">{stage.emoji}</span>
+        <div>
+          <p className="text-xs text-navy-400">Your current stage</p>
+          <p className="text-white font-semibold text-sm">{stage.name}</p>
+        </div>
+      </div>
+      <div className="sm:ml-auto flex flex-wrap gap-2">
+        {profile.field && (
+          <span className="text-xs text-navy-300 bg-navy-700 px-2.5 py-1 rounded-full">
+            {profile.field}
+          </span>
+        )}
+        {profile.targetIntake && profile.targetIntake !== 'Not sure yet' && (
+          <span className="text-xs text-navy-300 bg-navy-700 px-2.5 py-1 rounded-full">
+            {profile.targetIntake}
+          </span>
+        )}
+        <Link
+          to="/roadmap"
+          className="text-xs font-semibold text-[#F5A623] hover:underline flex items-center gap-1"
+        >
+          View roadmap <ChevronRight size={11} />
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function ProgramsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const { filters, updateFilter, toggleArrayFilter, resetFilters, activeFilterCount, results } = usePrograms();
   const { list } = useMyList();
+  const { profile } = useUser();
 
   return (
     <div className="min-h-screen bg-[#F9FAFB]">
@@ -35,6 +76,8 @@ export default function ProgramsPage() {
               </Link>
             )}
           </div>
+
+          {profile.completedOnboarding && <ProfileContextBanner profile={profile} />}
 
           {/* Search bar */}
           <div className="mt-6 flex gap-3">

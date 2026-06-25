@@ -1,6 +1,10 @@
 import { ArrowRight, Compass, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 export default function Hero() {
+  const { profile } = useUser();
+
   const handleScroll = (href) => {
     const id = href.replace('#', '');
     const el = document.getElementById(id);
@@ -54,13 +58,23 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => handleScroll('#roadmap')}
-              className="w-full sm:w-auto btn-primary !px-8 !py-4 !text-base gap-2 shadow-lg shadow-amber-400/20"
-            >
-              Start My Journey
-              <ArrowRight size={18} strokeWidth={2.5} />
-            </button>
+            {profile.completedOnboarding ? (
+              <Link
+                to="/roadmap"
+                className="w-full sm:w-auto btn-primary !px-8 !py-4 !text-base gap-2 shadow-lg shadow-amber-400/20 inline-flex items-center justify-center"
+              >
+                Continue My Journey
+                <ArrowRight size={18} strokeWidth={2.5} />
+              </Link>
+            ) : (
+              <Link
+                to="/onboarding"
+                className="w-full sm:w-auto btn-primary !px-8 !py-4 !text-base gap-2 shadow-lg shadow-amber-400/20 inline-flex items-center justify-center"
+              >
+                Start My Journey
+                <ArrowRight size={18} strokeWidth={2.5} />
+              </Link>
+            )}
             <button
               onClick={() => handleScroll('#programs')}
               className="w-full sm:w-auto btn-secondary !px-8 !py-4 !text-base"

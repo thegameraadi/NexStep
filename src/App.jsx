@@ -1,5 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { MyListProvider } from './context/MyListContext';
+import { UserProvider, useUser } from './context/UserContext';
 import Navbar from './components/Navbar';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
@@ -21,6 +22,16 @@ import ProgramsPage from './pages/ProgramsPage';
 import ProgramDetailPage from './pages/ProgramDetailPage';
 import MyListPage from './pages/MyListPage';
 
+// Onboarding + Roadmap
+import OnboardingPage from './pages/OnboardingPage';
+import RoadmapPage from './pages/RoadmapPage';
+
+function RoadmapGate() {
+  const { profile } = useUser();
+  if (!profile.completedOnboarding) return <Navigate to="/onboarding" replace />;
+  return <RoadmapPage />;
+}
+
 function HomePage() {
   return (
     <>
@@ -38,25 +49,33 @@ function HomePage() {
   );
 }
 
+function Shell() {
+  return (
+    <div className="min-h-screen bg-[#F9FAFB]">
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
+          <Route path="/roadmap" element={<RoadmapGate />} />
+          <Route path="/programs" element={<ProgramsPage />} />
+          <Route path="/programs/:id" element={<ProgramDetailPage />} />
+          <Route path="/my-list" element={<MyListPage />} />
+        </Routes>
+      </main>
+      <Footer />
+      <MobileBottomNav />
+      <div className="h-16 lg:hidden" aria-hidden="true" />
+    </div>
+  );
+}
+
 export default function App() {
   return (
-    <MyListProvider>
-      <div className="min-h-screen bg-[#F9FAFB]">
-        <Navbar />
-
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/programs" element={<ProgramsPage />} />
-            <Route path="/programs/:id" element={<ProgramDetailPage />} />
-            <Route path="/my-list" element={<MyListPage />} />
-          </Routes>
-        </main>
-
-        <Footer />
-        <MobileBottomNav />
-        <div className="h-16 lg:hidden" aria-hidden="true" />
-      </div>
-    </MyListProvider>
+    <UserProvider>
+      <MyListProvider>
+        <Shell />
+      </MyListProvider>
+    </UserProvider>
   );
 }
