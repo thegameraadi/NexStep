@@ -3,6 +3,7 @@ import { MyListProvider } from './context/MyListContext';
 import { UserProvider, useUser } from './context/UserContext';
 import { ApplicationProvider } from './context/ApplicationContext';
 import { SOPProvider } from './context/SOPContext';
+import { FinanceProvider } from './context/FinanceContext';
 import Navbar from './components/Navbar';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
@@ -30,6 +31,9 @@ import RoadmapPage from './pages/RoadmapPage';
 
 // Application HQ
 import ApplicationsPage from './pages/ApplicationsPage';
+
+// Finance Center
+import FinancePage from './pages/FinancePage';
 
 function RoadmapGate() {
   const { profile } = useUser();
@@ -67,6 +71,7 @@ function Shell() {
           <Route path="/programs/:id" element={<ProgramDetailPage />} />
           <Route path="/my-list" element={<MyListPage />} />
           <Route path="/applications" element={<ApplicationsPage />} />
+          <Route path="/finance" element={<FinancePage />} />
         </Routes>
       </main>
       <Footer />
@@ -82,7 +87,9 @@ export default function App() {
       <MyListProvider>
         <ApplicationProvider>
           <SOPProvider>
-            <Shell />
+            <FinanceProvider>
+              <Shell />
+            </FinanceProvider>
           </SOPProvider>
         </ApplicationProvider>
       </MyListProvider>
