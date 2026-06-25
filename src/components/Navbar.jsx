@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: 'Applications', href: '/applications', isRoute: true },
   { label: 'Finance', href: '/finance', isRoute: true },
   { label: 'Decisions', href: '/decisions', isRoute: true },
-  { label: 'Visa', href: '#visa' },
+  { label: 'Visa Vault', href: '/visa', isRoute: true },
   { label: 'Pre-Departure', href: '#pre-departure' },
   { label: 'Community', href: '#community' },
 ];
