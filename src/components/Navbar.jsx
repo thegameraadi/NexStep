@@ -4,7 +4,7 @@ import { Menu, X, ChevronRight } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Programs', href: '#programs' },
+  { label: 'Programs', href: '/programs', isRoute: true },
   { label: 'Applications', href: '#applications' },
   { label: 'Finance', href: '#finance' },
   { label: 'Visa', href: '#visa' },
@@ -66,16 +66,26 @@ export default function Navbar() {
 
           {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-0.5">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleAnchorClick(e, link.href)}
-                className="nav-link px-3 py-2 rounded-lg hover:bg-navy-50 text-navy-700 text-sm font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.isRoute ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="nav-link px-3 py-2 rounded-lg hover:bg-navy-50 text-navy-700 text-sm font-medium transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleAnchorClick(e, link.href)}
+                  className="nav-link px-3 py-2 rounded-lg hover:bg-navy-50 text-navy-700 text-sm font-medium transition-colors"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
           </div>
 
           {/* Desktop Auth */}
@@ -132,17 +142,29 @@ export default function Navbar() {
 
           {/* Drawer Links */}
           <nav className="px-4 py-4 space-y-1">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleAnchorClick(e, link.href)}
-                className="flex items-center justify-between px-4 py-3 rounded-xl text-navy-700 font-medium hover:bg-navy-50 hover:text-navy-900 transition-colors group"
-              >
-                {link.label}
-                <ChevronRight size={16} className="text-navy-300 group-hover:text-navy-500 transition-colors" />
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.isRoute ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-navy-700 font-medium hover:bg-navy-50 hover:text-navy-900 transition-colors group"
+                >
+                  {link.label}
+                  <ChevronRight size={16} className="text-navy-300 group-hover:text-navy-500 transition-colors" />
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleAnchorClick(e, link.href)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-navy-700 font-medium hover:bg-navy-50 hover:text-navy-900 transition-colors group"
+                >
+                  {link.label}
+                  <ChevronRight size={16} className="text-navy-300 group-hover:text-navy-500 transition-colors" />
+                </a>
+              )
+            )}
           </nav>
 
           {/* Drawer Auth */}

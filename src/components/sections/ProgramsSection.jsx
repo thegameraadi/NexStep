@@ -1,4 +1,5 @@
 import { GraduationCap, Search, SlidersHorizontal, Star, MapPin, DollarSign, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const SAMPLE_PROGRAMS = [
   {
@@ -134,10 +135,13 @@ export default function ProgramsSection() {
         </div>
 
         <div className="text-center">
-          <button className="inline-flex items-center gap-2 bg-navy-900 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-navy-800 transition-colors">
+          <Link
+            to="/programs"
+            className="inline-flex items-center gap-2 bg-navy-900 text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-navy-800 transition-colors"
+          >
             <Search size={16} />
-            Browse All 500+ Programs
-          </button>
+            Open Program Explorer
+          </Link>
         </div>
       </div>
     </section>
