@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'Programs', href: '/programs', isRoute: true },
   { label: 'Applications', href: '/applications', isRoute: true },
   { label: 'Finance', href: '/finance', isRoute: true },
+  { label: 'Decisions', href: '/decisions', isRoute: true },
   { label: 'Visa', href: '#visa' },
   { label: 'Pre-Departure', href: '#pre-departure' },
   { label: 'Community', href: '#community' },
