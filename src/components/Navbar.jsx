@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: 'Decisions', href: '/decisions', isRoute: true },
   { label: 'Visa Vault', href: '/visa', isRoute: true },
   { label: 'Pre-Departure', href: '/pre-departure', isRoute: true },
-  { label: 'Community', href: '#community' },
+  { label: 'Community', href: '/community', isRoute: true },
 ];
 
 export default function Navbar() {
