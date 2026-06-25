@@ -6,6 +6,7 @@ import { SOPProvider } from './context/SOPContext';
 import { FinanceProvider } from './context/FinanceContext';
 import { DecisionsProvider } from './context/DecisionsContext';
 import { VisaProvider } from './context/VisaContext';
+import { PreDepartureProvider } from './context/PreDepartureContext';
 import Navbar from './components/Navbar';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
@@ -42,6 +43,9 @@ import DecisionsPage from './pages/DecisionsPage';
 
 // Visa Vault
 import VisaPage from './pages/VisaPage';
+
+// Pre-Departure Hub
+import PreDeparturePage from './pages/PreDeparturePage';
 
 function RoadmapGate() {
   const { profile } = useUser();
@@ -82,6 +86,7 @@ function Shell() {
           <Route path="/finance" element={<FinancePage />} />
           <Route path="/decisions" element={<DecisionsPage />} />
           <Route path="/visa" element={<VisaPage />} />
+          <Route path="/pre-departure" element={<PreDeparturePage />} />
         </Routes>
       </main>
       <Footer />
@@ -100,7 +105,9 @@ export default function App() {
             <FinanceProvider>
               <DecisionsProvider>
                 <VisaProvider>
-                  <Shell />
+                  <PreDepartureProvider>
+                    <Shell />
+                  </PreDepartureProvider>
                 </VisaProvider>
               </DecisionsProvider>
             </FinanceProvider>
