@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { MyListProvider } from './context/MyListContext';
 import { UserProvider, useUser } from './context/UserContext';
+import { ApplicationProvider } from './context/ApplicationContext';
+import { SOPProvider } from './context/SOPContext';
 import Navbar from './components/Navbar';
 import MobileBottomNav from './components/MobileBottomNav';
 import Footer from './components/Footer';
@@ -25,6 +27,9 @@ import MyListPage from './pages/MyListPage';
 // Onboarding + Roadmap
 import OnboardingPage from './pages/OnboardingPage';
 import RoadmapPage from './pages/RoadmapPage';
+
+// Application HQ
+import ApplicationsPage from './pages/ApplicationsPage';
 
 function RoadmapGate() {
   const { profile } = useUser();
@@ -61,6 +66,7 @@ function Shell() {
           <Route path="/programs" element={<ProgramsPage />} />
           <Route path="/programs/:id" element={<ProgramDetailPage />} />
           <Route path="/my-list" element={<MyListPage />} />
+          <Route path="/applications" element={<ApplicationsPage />} />
         </Routes>
       </main>
       <Footer />
@@ -74,7 +80,11 @@ export default function App() {
   return (
     <UserProvider>
       <MyListProvider>
-        <Shell />
+        <ApplicationProvider>
+          <SOPProvider>
+            <Shell />
+          </SOPProvider>
+        </ApplicationProvider>
       </MyListProvider>
     </UserProvider>
   );

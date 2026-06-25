@@ -6,7 +6,7 @@ import { useUser } from '../context/UserContext';
 const NAV_LINKS = [
   { label: 'Roadmap', href: '/roadmap', isRoute: true },
   { label: 'Programs', href: '/programs', isRoute: true },
-  { label: 'Applications', href: '#applications' },
+  { label: 'Applications', href: '/applications', isRoute: true },
   { label: 'Finance', href: '#finance' },
   { label: 'Visa', href: '#visa' },
   { label: 'Pre-Departure', href: '#pre-departure' },
