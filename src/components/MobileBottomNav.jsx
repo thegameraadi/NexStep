@@ -6,7 +6,7 @@ const NAV_ITEMS = [
   { icon: Home, label: 'Home', to: '/', exact: true },
   { icon: GraduationCap, label: 'Programs', to: '/programs' },
   { icon: Bookmark, label: 'My List', to: '/my-list' },
-  { icon: Users, label: 'Community', to: '/#community' },
+  { icon: Users, label: 'Community', to: '/community' },
 ];
 
 export default function MobileBottomNav() {
